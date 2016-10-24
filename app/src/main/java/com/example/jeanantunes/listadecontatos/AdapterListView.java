@@ -10,6 +10,7 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,7 @@ import java.util.List;
  * Created by jean.antunes on 20/09/2016.
  */
 public class AdapterListView extends BaseAdapter{
+
     private Context context;
     private LayoutInflater inflater;
     private List<Contact> itens;
@@ -50,6 +52,7 @@ public class AdapterListView extends BaseAdapter{
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+
         Contact item = itens.get(position);
         LayoutInflater inflater = (LayoutInflater)
                 context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -62,10 +65,13 @@ public class AdapterListView extends BaseAdapter{
 
         File path = new File(item.getImage());
         ImageView img = (ImageView)view.findViewById(R.id.contactImage);
-        Bitmap scaled = Bitmap.createScaledBitmap(BitmapFactory.decodeFile(path.getAbsolutePath()),100, 100, true);
+        //Bitmap scaled = Bitmap.createScaledBitmap(BitmapFactory.decodeFile(path.getAbsolutePath()),100, 100, true);
+        img.setImageBitmap(roundCornerImage(BitmapFactory.decodeFile(path.getAbsolutePath()),2500));
+        //img.setImageBitmap(BitmapFactory.decodeFile(path.getAbsolutePath()));
+        //img.setImageBitmap(roundCornerImage(scaled, 50));
 
-        img.setImageBitmap(roundCornerImage(scaled, 50));
         return view;
+
     }
 
     public Bitmap roundCornerImage(Bitmap src, float round) {
